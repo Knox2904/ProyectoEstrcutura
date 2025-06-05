@@ -2,7 +2,7 @@
 
 # Nombre del archivo fuente y ejecutable
 SOURCE="main.c"
-OUTPUT="mi_programa"
+OUTPUT="run"
 
 echo "Compilando $SOURCE..."
 gcc $SOURCE -o $OUTPUT
