@@ -1,7 +1,10 @@
 #include <stdio.h> 
-#include "TDAs/TDAs.h"
-#include "temporizador.h"
-#include "wordle.h"
+#include "TDAs/list.h"
+#include "TDAs/queue.h"
+#include "funciones/wordle.h"
+#include "Temporizador/temporizador.h"
+
+
 
 int main(){
 

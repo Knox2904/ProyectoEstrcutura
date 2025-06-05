@@ -1,11 +1,11 @@
-#include "TDAs/TDAs.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "wordle.h"
 
-Wordle *crearWrodle(int maxIntentos , int largoPalabra , const char *palabraObjetivo ){
+Wordle *crearWordle(int maxIntentos , int largoPalabra , const char *palabraObjetivo ){
     
     Wordle *partida = malloc(sizeof(Wordle)) ; 
     partida->maxIntentos = maxIntentos ; 
@@ -22,9 +22,8 @@ Wordle *crearWrodle(int maxIntentos , int largoPalabra , const char *palabraObje
     return partida; 
 }
 
-
 void guardarIntento(Wordle *partida , const char *intento) {
-    if (partida->intentoActual >= partida->maxIntentos) return NULL;
+    if (partida->intentoActual >= partida->maxIntentos) return ;
 
     strncpy(partida->TablaWordle[partida->intentoActual], intento, partida->largoPalabra);
     partida->intentoActual++;

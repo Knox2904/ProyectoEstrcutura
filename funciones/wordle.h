@@ -1,7 +1,7 @@
-#ifndef FUNCIONES_H
-#define FUNCIONES_H
+#ifndef WORDLE_H
+#define WORDLE_H
 
-#include "TDAs/TDAs.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -17,9 +17,9 @@ typedef struct{
 }Wordle;
 
 //funcion para poder crear una nueva partida de wrodle , iniciando la matriz y guardando el largo de la palabra y el maximo de intentos para el jugador 
-Wordle *crearWrodle(int maxIntentos , int largoPalabra , const char *palabraObjetivo ) ;
+Wordle *crearWordle(int maxIntentos , int largoPalabra , const char *palabraObjetivo ) ;
 
-//funcion para poder guardar un intento en el wordle , retorna NULL si se exedio el maximo de intentos o ya estas en el maximo
+//funcion para poder guardar un intento en el wordle 
 void guardarIntento(Wordle *partida , const char *intento) ; 
 
 //esta funcion DESTRUYE NO REINICIA  el wordle
