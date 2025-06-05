@@ -30,4 +30,23 @@ void guardarIntento(Wordle *partida , const char *intento) {
     partida->intentoActual++;
 }
 
-void destruirWordle(Wordle *partida) ; 
+void destruirWordle(Wordle *partida){
+    for(int i = 0 ; i < partida->maxIntentos ; i++){
+        free(partida->TablaWordle[i]) ; 
+    }
+    free(partida->TablaWordle) ; 
+    free(partida->palabraObjetivo) ; 
+    free(partida) ; 
+}
+
+void reiniciarParida(Wordle *partida , const char *NuevaPalabra){
+
+    partida->intentoActual = 0 ; 
+
+    free(partida->palabraObjetivo) ; 
+    partida->palabraObjetivo = strdup(NuevaPalabra) ; 
+
+    for(int i =0 ; i < partida->maxIntentos ; i++){
+        memset(partida->TablaWordle[i], 0, partida->largoPalabra + 1);
+    }
+}
