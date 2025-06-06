@@ -97,8 +97,6 @@ void evaluarIntento(const Wordle *partida , const char *intento , char * resulta
     resultado[largo] = '\0'; // se aseguta el fin del string o palabra.
 }
 
-
-
 void imprimirResultado(const char* intento, const char* resultado, int largo) {
     for (int i = 0; i < largo; ++i) {
         char letra = intento[i];
