@@ -133,16 +133,12 @@ void jugarWordle(){
 
         if (flag != 0 && partida->intentoActual < partida->maxIntentos )
         {
-            limpiarPantalla() ;
-            char resultado[32]; // o usa partida->largoPalabra+1 para mayor seguridad
-            evaluarIntento(partida, intento, resultado);
-            imprimirResultado(intento, resultado, partida->largoPalabra);
+            limpiarPantalla() ; 
+            mostrarWordleColoreado(partida);
+            printf("el largo es  : %d\n" , partida->largoPalabra) ; 
+            
         }
 
-
-
-        mostrarWordle(partida) ;
-        
         
         printf("te quedan %d intentos 💀 \n" , intentosRestantes) ; 
 

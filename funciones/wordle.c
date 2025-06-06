@@ -110,14 +110,10 @@ void imprimirResultado(const char* intento, const char* resultado, int largo) {
     printf("\n");
 }
 
-void mostrarWordle(Wordle *partida) {
-    printf("\nEstado actual del Wordle:\n");
-    
-    for (int i = 0; i < partida->maxIntentos; i++) {
-        for (int j = 0; j < partida->largoPalabra; j++) {
-            printf("%c ", partida->TablaWordle[i][j]); // Muestra cada letra separada por espacio
-        }
-        printf("\n"); // Salto de línea por fila
+void mostrarWordleColoreado(Wordle *partida) {
+    for (int i = 0; i < partida->intentoActual; i++) {
+        char resultado[32];
+        evaluarIntento(partida, partida->TablaWordle[i], resultado);
+        imprimirResultado(partida->TablaWordle[i], resultado, partida->largoPalabra);
     }
-    printf("\n");
 }
