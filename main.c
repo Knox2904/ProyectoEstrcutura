@@ -112,7 +112,43 @@ void jugarWordle(){
                 break;
         }
 
-        printf("%s\n" , partida->palabraObjetivo) ; 
+
+        int flag = 1 ;
+        int intentosRestantes ; 
+        while(1){
+        
+        intentosRestantes = partida->maxIntentos - partida->intentoActual ; 
+
+
+        char *intento = malloc(51);
+
+        puts("ingrese su intento : \n") ; 
+        getchar() ;
+        scanf("%[^\n]", intento);
+
+        flag = strncmp(intento , partida->palabraObjetivo , partida->largoPalabra) ;
+        guardarIntento(partida , intento) ; 
+
+        if (flag != 0 && partida->intentoActual < partida->maxIntentos )
+        {
+            evaluarIntento(partida , intento , partida->palabraObjetivo);
+            imprimirResultado( intento,  partida->palabraObjetivo, partida->largoPalabra);
+        }
+
+
+
+
+
+
+
+        printf("el largo es  : %d\n" , partida->largoPalabra) ; 
+        printf("te quedan %d intentos 💀 \n" , intentosRestantes) ; 
+        
+            if(flag == 0 || partida->intentoActual >= partida->maxIntentos) {
+                printf("la palabra era : %s\n" , partida->palabraObjetivo) ;
+                break ; 
+            } 
+        }
 
 
         presioneTeclaParaContinuar();
