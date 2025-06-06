@@ -12,7 +12,6 @@
 #define MAX_PALABRAS 100
 #define MAX_LARGO 32
 
-
 char* stringToLower(const char* str) {
     char* result = strdup(str);
     for (int i = 0; result[i]; i++)
@@ -23,7 +22,7 @@ char* stringToLower(const char* str) {
 void menuGeneral() {
   limpiarPantalla();
   puts("========================================");
-  puts("     Bienvenido , que desea hacer");
+  puts("              Bienvenido                ");
   puts("========================================");
 
   puts("1) Jugar Kahoot");
@@ -45,7 +44,6 @@ void menuWordle(){
 
 
 }
-
 
 Wordle* cargarCSVWordle(char *dificultad, int intentos) {
     char archivo_nombre[50];
@@ -88,77 +86,119 @@ Wordle* cargarCSVWordle(char *dificultad, int intentos) {
 }
 
 void jugarWordle(){
+
+    limpiarPantalla() ; 
+    puts("sabes jugar wordle? (y/n)") ;
+    char le_sabe ;
+    scanf(" %c" , &le_sabe) ; 
+
+    switch (le_sabe) {
+    case 'y':
+        break;
+    
+    case 'n' :
+        limpiarPantalla() ; 
+        reglasWordle() ; 
+        break;    
+
+    default:
+        printf("opcion no valida , ingrese [y] para si , o [n] para no \n") ; 
+        break;
+    }
+
+    presioneTeclaParaContinuar() ; 
+    limpiarPantalla() ; 
+
+
     char opcion ; 
     char* dificultad[] = {"facil", "normal", "dificil"};
     int intentos[] = {6 , 5 , 3} ; 
     Wordle*partida ;
-        menuWordle() ; 
-        printf("Que desea hacer : \n") ; 
-        scanf(" %c" , &opcion) ; 
+    menuWordle() ; 
+    printf("Que desea hacer : \n") ; 
+    scanf(" %c" , &opcion) ; 
 
-        switch (opcion){
-            case '1' :
-                printf("cargando csv\n") ; 
-                partida = cargarCSVWordle(dificultad[0] , intentos[0]);
-                printf("se cargo correctamente\n") ;
-                break;
-            case '2' :
-                printf("cargando csv\n") ; 
-                partida = cargarCSVWordle(dificultad[1] , intentos[1]);
-                printf("se cargo correctamente\n") ;
-                break; 
+    switch (opcion){
+        case '1' :
+            printf("cargando csv\n") ; 
+            partida = cargarCSVWordle(dificultad[0] , intentos[0]);
+            printf("se cargo correctamente , iniciando partida \n") ;
+            Sleep(2000);
+            limpiarPantalla() ; 
+            break;
+        case '2' :
+            printf("cargando csv\n") ; 
+            partida = cargarCSVWordle(dificultad[1] , intentos[1]);
+            printf("se cargo correctamente , iniciando partida\n") ;
+            Sleep(2000);
+            limpiarPantalla() ; 
+            break; 
                 
-            case '3' :
-                printf("cargando csv\n") ; 
-                partida = cargarCSVWordle(dificultad[2] , intentos[2]);
-                printf("se cargo correctamente\n") ;
-                break;
+        case '3' :
+            printf("cargando csv\n") ; 
+            partida = cargarCSVWordle(dificultad[2] , intentos[2]);
+            printf("se cargo correctamente , suerte 🛐 \n") ;
+            Sleep(2000);
+            limpiarPantalla() ; 
+            break;
                 
-            case '4' :
-                break;
+        case '4' :
+            break;
             
-            default :
-                printf("opcion  no valida , selecione una opcion valida (1 o 2)\n") ; 
-                break;
-        }
+        default :
+            printf("opcion  no valida , selecione una opcion valida (1 o 2)\n") ; 
+            break;
+    }
 
 
-        int flag = 1 ;
-        int intentosRestantes ; 
-        printf("el largo es  : %d\n" , partida->largoPalabra) ; 
-        while(1){
+    int flag = 1 ;
+    printf("el largo es  : %d\n" , partida->largoPalabra) ; 
+
+
+    while(1){
         
-        intentosRestantes = (partida->maxIntentos - partida->intentoActual) - 1 ; 
-
-
+        int intentosRestantes = (partida->maxIntentos - partida->intentoActual) - 1 ; 
         char *intento = malloc(51);
 
+        //se pide la palabra 
         puts("ingrese su intento : \n") ; 
         getchar() ;
         scanf("%[^\n]", intento);
 
+        //es la palabra correcta?
         flag = strncmp(intento , partida->palabraObjetivo , partida->largoPalabra) ;
         guardarIntento(partida , intento) ; 
+        
 
+        //es la respuesta incorrecta? , esta dentro de una cantidad valida de intentos?
         if (flag != 0 && partida->intentoActual < partida->maxIntentos )
         {
             limpiarPantalla() ; 
             mostrarWordleColoreado(partida);
-            printf("el largo es  : %d\n" , partida->largoPalabra) ; 
+            printf("el largo es  : %d\n" , partida->largoPalabra) ;
+            printf("te quedan %d intentos 💀 \n" , intentosRestantes) ; 
             
         }
 
-        
-        printf("te quedan %d intentos 💀 \n" , intentosRestantes) ; 
-
-            if(flag == 0 || partida->intentoActual >= partida->maxIntentos) {
-                printf("la palabra era : %s\n" , partida->palabraObjetivo) ;
-                break ; 
-            } 
+        //se adivino la palabra?
+        if (flag == 0 ){
+            limpiarPantalla() ; 
+            printf("felicidades , encontraste la plabra correcta con %d intentos restantes :) \n") ; 
+            break;
         }
 
+        //se quedo sin intentos?
+        if(partida->intentoActual >= partida->maxIntentos) {
+            limpiarPantalla() ;             
+            printf("te quedaste sin intentos , la palabra era : %s\n", partida->palabraObjetivo) ; 
+            break ; 
+        }
+    }
 
-        presioneTeclaParaContinuar();
+
+
+    puts("redirigiendo al menu : ") ; 
+    Sleep(4000);
 }
 
 void jugarKahoot()
@@ -181,7 +221,7 @@ int main() {
 
     do {
         menuGeneral();
-        printf("¿Qué desea hacer?: ");
+        printf("¿Qué desea hacer?: \n");
         scanf(" %c", &opcion);
 
         switch (opcion) {
@@ -197,7 +237,7 @@ int main() {
                 printf("Opción no válida. Seleccione una opción válida (1 o 2).\n");
                 break;
         }
-        presioneTeclaParaContinuar();
+        
     } while (opcion != '3');
 
     return 0;

@@ -41,4 +41,7 @@ void imprimirResultado(const char* intento, const char* resultado, int largo);
 
 //mustra la matriz del wordle .
 void mostrarWordleColoreado(Wordle *partida) ; 
+
+//mustra las reglas del wordle
+void reglasWordle() ; 
 #endif

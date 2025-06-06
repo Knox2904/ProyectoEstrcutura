@@ -117,3 +117,17 @@ void mostrarWordleColoreado(Wordle *partida) {
         imprimirResultado(partida->TablaWordle[i], resultado, partida->largoPalabra);
     }
 }
+
+void reglasWordle() {
+
+    printf("Objetivo : Adivinar una palabra de dificultad variable en una cantidad de intentos variables \n") ;
+    printf("Facil -> largo de 3 a 6 letras , con 6 intentos\n") ;
+    printf("Normal -> largo de 4 a 6 letras , con 5 intentos \n") ;
+    printf("Dificil -> largo con 7 a 35 letras con 3 intentos (suerte 🙏💀 )\n") ;
+    puts("") ; 
+    puts("Como se juega :") ; 
+    puts("1) escribe una palabra de largo cambiante , segun la dificultad elegida , en cada intento") ; 
+    puts("2) despues de cada intento las letras cambiaran de color para darte pistas siguento el siguiente codigo : ") ;
+    puts("verde -> la letra esta en la posicion correcta y la letra es correcta ") ;
+    puts("amarillo -> la letra esta en la palabra pero en la posicion incorrecta ") ;
+}
