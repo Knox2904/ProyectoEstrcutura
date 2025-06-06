@@ -39,6 +39,6 @@ void evaluarIntento(const Wordle *partida , const char *intento , char * resulta
 //Imprime
 void imprimirResultado(const char* intento, const char* resultado, int largo);
 
-//mustra la matriz del wordle 
+//mustra la matriz del wordle .
 void mostrarWordle(Wordle *partida) ; 
 #endif
