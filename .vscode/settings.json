@@ -2,6 +2,7 @@
     "files.associations": {
         "centralizadotdas.h": "c",
         "temporizador.h": "c",
-        "wordle.h": "c"
+        "wordle.h": "c",
+        "windows.h": "c"
     }
 }

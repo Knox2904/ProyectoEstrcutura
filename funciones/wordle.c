@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 #include "wordle.h"
 
 Wordle *crearWordle(int maxIntentos , int largoPalabra , const char *palabraObjetivo ){
@@ -36,6 +37,14 @@ void destruirWordle(Wordle *partida){
     free(partida->TablaWordle) ; 
     free(partida->palabraObjetivo) ; 
     free(partida) ; 
+}
+
+int conseguirNumeroAleatorio() {
+
+    srand(time(NULL));
+
+    int numero = rand() % 41 ; 
+    return numero; 
 }
 
 void reiniciarParida(Wordle *partida , const char *NuevaPalabra){

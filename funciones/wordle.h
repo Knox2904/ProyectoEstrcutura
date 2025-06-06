@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 typedef struct{
     
@@ -27,5 +28,8 @@ void destruirWordle(Wordle *partida) ;
 
 //esta funcion REINICIA LA PARTIDA , y necesita una nueva palabra
 void reiniciarParida(Wordle *partida , const char *NuevaPalabra) ; 
+
+//esta funcion retorna un numero aleatorio entre 1 y 40
+int conseguirNumeroAleatorio() ; 
 
 #endif
