@@ -7,6 +7,8 @@
 #include <windows.h>
 #include <time.h>
 #include <unistd.h> 
+#define MAX_PALABRAS 100
+#define MAX_LARGO 32
 
 void menuGeneral() {
   limpiarPantalla();
@@ -34,9 +36,9 @@ void menuWordle(){
 
 }
 
+
 Wordle* cargarCSVWordle(char *dificultad, int intentos) {
-    // Construir el nombre del archivo CSV dinámicamente
-    char archivo_nombre[50]; // Espacio suficiente para el nombre del archivo
+    char archivo_nombre[50];
     sprintf(archivo_nombre, "CSVs/wordle_%s.csv", dificultad);
 
     FILE *archivo = fopen(archivo_nombre, "r");
@@ -45,46 +47,32 @@ Wordle* cargarCSVWordle(char *dificultad, int intentos) {
         return NULL;
     }
 
-    char **lista[100]; // Lista para almacenar hasta 100 líneas
+    char *lista[MAX_PALABRAS];
     int count = 0;
+    char buffer[MAX_LARGO];
 
-    // Leer encabezados y descartarlos si no son necesarios
-    leer_linea_csv(archivo, ','); 
-
-    while ((lista[count] = leer_linea_csv(archivo, ',')) != NULL) {
+    while (fgets(buffer, sizeof(buffer), archivo) && count < MAX_PALABRAS) {
+        buffer[strcspn(buffer, "\r\n")] = 0; // Quitar salto de línea
+        lista[count] = strdup(buffer);
         count++;
-        if (count >= 100) break;
     }
-
-    fclose(archivo); 
+    fclose(archivo);
 
     if (count == 0) {
         fprintf(stderr, "No se encontraron palabras en el CSV.\n");
         return NULL;
     }
 
-    // Generar índice aleatorio seguro dentro del número real de elementos
-    int indice = conseguirNumeroAleatorio(count); 
+    int indice = rand() % count; // o tu función conseguirNumeroAleatorio(count)
+    char *palabra = lista[indice];
+    int largo = strlen(palabra);
 
+    Wordle *aux = crearWordle(intentos, largo, palabra);
 
-    // Duplicar la palabra correctamente
-    char *palabra = strdup(lista[indice][0]); 
-    int largo = strlen(palabra); 
-
-    // Crear el objeto Wordle
-    Wordle *aux = crearWordle(intentos, largo, palabra); 
-
-    // Mostrar los datos antes de eliminarlos
-    printf("Palabras cargadas desde el CSV:\n");
+    // Liberar memoria de las palabras no seleccionadas
     for (int i = 0; i < count; i++) {
-        printf("Fila %d: %s\n", i, lista[i][0]); // Mostrar la palabra de cada fila
+        if (i != indice) free(lista[i]);
     }
-
-    // Liberar memoria usada en lista
-    for (int i = 0; i < count; i++) {
-        free(lista[i]);
-    }
-
 
     return aux;
 }
