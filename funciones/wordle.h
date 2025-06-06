@@ -30,7 +30,7 @@ void destruirWordle(Wordle *partida) ;
 void reiniciarParida(Wordle *partida , const char *NuevaPalabra) ; 
 
 //esta funcion retorna un numero aleatorio entre 1 y 40
-int conseguirNumeroAleatorio() ; 
+int conseguirNumeroAleatorio(int max) ; 
 
 //funcion que evalua las letras puestas por el jugador segun la palabra de su intento, si es que esta correcta la letra en el espacio:
 // correcta = G , presente en la palabra = Y , incorrecta = I, G es color verde, Y es amarillo e I  es rojo.

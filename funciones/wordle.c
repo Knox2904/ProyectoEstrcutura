@@ -39,12 +39,8 @@ void destruirWordle(Wordle *partida){
     free(partida) ; 
 }
 
-int conseguirNumeroAleatorio() {
-
-    srand(time(NULL));
-
-    int numero = rand() % 41 ; 
-    return numero; 
+int conseguirNumeroAleatorio(int max) {
+    return rand() % max;
 }
 
 void reiniciarParida(Wordle *partida , const char *NuevaPalabra){
