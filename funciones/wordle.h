@@ -32,4 +32,13 @@ void reiniciarParida(Wordle *partida , const char *NuevaPalabra) ;
 //esta funcion retorna un numero aleatorio entre 1 y 40
 int conseguirNumeroAleatorio() ; 
 
+
+//funcion que evalua las letras puestas por el jugador segun la palabra de su intento, si es que esta correcta la letra en el espacio:
+// correcta = G , presente en la palabra = Y , incorrecta = I, G es color verde, Y es amarillo e I  es rojo.
+void evaluarIntento(const Wordle *partida , const char *intento , char * resultado);
+
+
+
+//Imprime
+void imprimirResultado(const char* intento, const char* resultado, int largo);
 #endif
