@@ -2,6 +2,7 @@
 #include "TDAs/list.h"
 #include "TDAs/queue.h"
 #include "funciones/wordle.h"
+#include "funciones/kahoot.h"
 #include "Temporizador/temporizador.h"
 #include "TDAs/extra.h"
 #include <windows.h>
@@ -152,6 +153,16 @@ void jugarWordle(){
 
 
         presioneTeclaParaContinuar();
+}
+
+void jugarKahoot()
+{
+    char respuesta[300];
+    int puntaje;
+    menuKahoot();
+    printf("listo para jugar ?\n");
+    scnaf();
+
 }
 
 int main() {
