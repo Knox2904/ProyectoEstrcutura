@@ -116,6 +116,7 @@ void jugarWordle(){
 
         int flag = 1 ;
         int intentosRestantes ; 
+        printf("el largo es  : %d\n" , partida->largoPalabra) ; 
         while(1){
         
         intentosRestantes = (partida->maxIntentos - partida->intentoActual) - 1 ; 
@@ -142,7 +143,7 @@ void jugarWordle(){
 
         mostrarWordle(partida) ;
         
-        printf("el largo es  : %d\n" , partida->largoPalabra) ; 
+        
         printf("te quedan %d intentos 💀 \n" , intentosRestantes) ; 
 
             if(flag == 0 || partida->intentoActual >= partida->maxIntentos) {
@@ -161,7 +162,7 @@ void jugarKahoot()
     int puntaje;
     menuKahoot();
     printf("listo para jugar ?\n");
-    scnaf();
+    //scnaf();
 
 }
 

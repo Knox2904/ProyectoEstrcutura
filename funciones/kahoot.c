@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
+#include "TDAs\extra.h"
 #include "kahoot.h"
 
 void menuKahoot() 
