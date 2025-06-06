@@ -8,8 +8,17 @@
 #include <windows.h>
 #include <time.h>
 #include <unistd.h> 
+#include <ctype.h>
 #define MAX_PALABRAS 100
 #define MAX_LARGO 32
+
+
+char* stringToLower(const char* str) {
+    char* result = strdup(str);
+    for (int i = 0; result[i]; i++)
+        result[i] = tolower((unsigned char)result[i]);
+    return result;
+}
 
 void menuGeneral() {
   limpiarPantalla();
@@ -65,7 +74,7 @@ Wordle* cargarCSVWordle(char *dificultad, int intentos) {
     }
 
     int indice = rand() % count; // o tu función conseguirNumeroAleatorio(count)
-    char *palabra = lista[indice];
+    char *palabra = stringToLower(lista[indice]);
     int largo = strlen(palabra);
 
     Wordle *aux = crearWordle(intentos, largo, palabra);
