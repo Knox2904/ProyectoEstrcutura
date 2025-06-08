@@ -4,6 +4,10 @@
         "temporizador.h": "c",
         "wordle.h": "c",
         "windows.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "ctype.h": "c",
+        "list.h": "c",
+        "kahoot.h": "c",
+        "unistd.h": "c"
     }
 }

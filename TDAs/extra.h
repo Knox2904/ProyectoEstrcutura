@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "list.h"
 
 /**
@@ -45,5 +46,7 @@ List *split_string(const char *str, const char *delim);
 void limpiarPantalla();
 
 void presioneTeclaParaContinuar();
+
+char* stringToLower(const char* str) ; 
 
 #endif

@@ -34,3 +34,15 @@ void stack_clean(Stack* stack) {
     if (stack == NULL) return;
     list_clean(stack);
 }
+
+void stack_destroy(Stack* stack, void (*destroy_data)(void*)) {
+    while (!stack_is_empty(stack)) {
+        void* data = stack_pop(stack);
+        if (destroy_data) {
+            destroy_data(data);
+        }
+    }
+    // Aquí liberas la estructura interna de la pila (lista)
+    stack_clean(stack);
+    free(stack);
+}

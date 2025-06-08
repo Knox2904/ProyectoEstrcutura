@@ -89,3 +89,10 @@ void presioneTeclaParaContinuar() {
   getchar(); // Consume el '\n' del buffer de entrada
   getchar(); // Espera a que el usuario presione una tecla
 }
+
+char* stringToLower(const char* str) {
+    char* result = strdup(str);
+    for (int i = 0; result[i]; i++)
+        result[i] = tolower((unsigned char)result[i]);
+    return result;
+}

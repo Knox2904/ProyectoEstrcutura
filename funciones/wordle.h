@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include "TDAs/stack.h"
 
 typedef struct{
     
@@ -44,4 +45,23 @@ void mostrarWordleColoreado(Wordle *partida) ;
 
 //mustra las reglas del wordle
 void reglasWordle() ; 
+
+//carga el csv de las tres dificultades principales 
+Wordle* cargarCSVWordle(const char *dificultad, int intentos) ;
+
+//carga el csv para el modo infinito , se tiene que cargar dificultad veces si 
+void cargarWordleInfinito(Stack* pila, char* dificultad, int intentos) ; 
+
+//muestra el menu del worlde
+void menuWordle() ;
+
+//permite jugar una partida normal de wordle 
+void juegoNormalWordle(Wordle *partida , int* perdio ) ; 
+
+//le pone datos al wordle 
+void ConfigurarWorldes(Wordle **partida, char *opcion, Stack *pilaWordles);
+
+//permite jugar wordle infinito KMS
+void jugarInfinito(Stack* pila) ; 
+
 #endif
