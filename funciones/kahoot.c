@@ -74,6 +74,9 @@ int obtener_opcion_menu(int min, int max) {
 
 void menuKahoot() {
     int opcion;
+    if (!historial_partidas) {
+        historial_partidas = stack_create(NULL);
+    }
     do {
         limpiarPantalla();
         puts("========================================");
@@ -182,7 +185,6 @@ void mostrar_resultado_final(Partida* partida) {
     printf("Preguntas correctas: %d/%d\n", partida->preguntas_correctas, partida->total_preguntas);
     printf("Tiempo promedio: %.2f seg\n", partida->tiempo_promedio);
     puts("====================================");
-    presioneTeclaParaContinuar();
 }
 
 void aleatorizarPreguntas(List* lista) {
@@ -241,8 +243,6 @@ int cargar_preguntas_csv(const char* archivo, List* lista) {
 
 void jugar_kahoot() {
     limpiarPantalla();
-    menuKahoot();
-    presioneTeclaParaContinuar();
 
     List* preguntas = list_create();
     int total_disponibles = cargar_preguntas_csv("CSVs/kahoot_55_preguntas.csv", preguntas);
@@ -280,7 +280,17 @@ void jugar_kahoot() {
     time_t fin_partida = time(NULL);
     partida.tiempo_promedio = (float)(fin_partida - inicio_partida) / partida.total_preguntas;
 
+
+    guardar_partida(&partida);
     mostrar_resultado_final(&partida);
     list_clean(preguntas);
     free(preguntas);
+}
+
+void guardar_partida(Partida* partida) {
+    Partida* nueva_partida = malloc(sizeof(Partida));
+    if (nueva_partida) {
+        *nueva_partida = *partida;
+        stack_push(historial_partidas, nueva_partida);
+    }
 }

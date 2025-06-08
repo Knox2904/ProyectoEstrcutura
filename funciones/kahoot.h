@@ -39,7 +39,7 @@ typedef struct {
 } Partida;
 
 // funciones principales
-void menu_kahoot();
+void menuKahoot();
 
 // funciones de carga de datos
 int cargar_preguntas_csv(const char* archivo, List* lista);
@@ -54,6 +54,7 @@ void mostrar_resultado_final(Partida* partida);
 
 // funciones de historial y ranking
 void mostrar_historial();
+void guardar_partida(Partida* partida);
 int obtener_opcion_menu(int min, int max);
 
 // funciones de utilidad and stuff
