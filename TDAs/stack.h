@@ -4,14 +4,15 @@
 
 typedef List Stack;
 
-Stack *stack_create(Stack *stack) { return list_create(); }
+// Funciones básicas de Stack
+Stack* stack_create();
+void stack_push(Stack* stack, void* data);
+void* stack_pop(Stack* stack);
+void* stack_top(Stack* stack);
+void stack_clean(Stack* stack);
 
-void stack_push(Stack *stack, void *data) { list_pushFront(stack, data); }
-
-void *stack_top(Stack *stack) { return list_first(stack); }
-
-void *stack_pop(Stack *stack) { return list_popFront(stack); }
-
-void stack_clean(Stack *stack) { list_clean(stack); }
+// Funciones auxiliares
+int stack_is_empty(Stack* stack);
+int stack_size(Stack* stack);
 
 #endif /* STACK_H */

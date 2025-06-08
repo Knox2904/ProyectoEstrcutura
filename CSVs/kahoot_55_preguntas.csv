@@ -39,3 +39,18 @@ MULTIPLE_CHOICE,Biología,¿Qué órgano bombea la sangre?,Pulmón,Cerebro,Híga
 TRUE_FALSE,Cine,El personaje de "Forrest Gump" fue interpretado por Tom Hanks.,Verdadero,Falso,,,0
 MULTIPLE_CHOICE,Deportes,¿En qué país se originaron los Juegos Olímpicos?,Italia,Grecia,Egypto,España,1
 TRUE_FALSE,Literatura,"Romeo y Julieta" fue escrita por Shakespeare.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Música,¿Cuál de estos es un instrumento de cuerda?,Flauta,Piano,Guitarra,Tambor,2
+TRUE_FALSE,Ciencia,La fotosíntesis ocurre en las hojas de las plantas.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Cultura,¿Cuál es el idioma más hablado del mundo?,Inglés,Chino mandarín,Español,Hindi,1
+MULTIPLE_CHOICE,Geografía,¿Qué océano está entre África y Australia?,Pacífico,Atlántico,Índico,Ártico,2
+TRUE_FALSE,Deportes,El baloncesto se juega con una pelota ovalada.,Verdadero,Falso,,,1
+MULTIPLE_CHOICE,Tecnología,¿Qué significa “CPU”?,Central Processing Unit,Computer Power Unit,Control Processor Unit,Core Processing Unit,0
+MULTIPLE_CHOICE,Literatura,¿Cuál de estos libros fue escrito por J.K. Rowling?,El Hobbit,Crónica de una muerte anunciada,Harry Potter y la piedra filosofal,La sombra del viento,2
+TRUE_FALSE,Historia,Cristóbal Colón descubrió América en 1492.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Astronomía,¿Cuál es el planeta más grande del sistema solar?,Tierra,Marte,Júpiter,Saturno,2
+MULTIPLE_CHOICE,Cultura,¿Qué país tiene forma de bota?,España,Italia,Brasil,Portugal,1
+TRUE_FALSE,Química,El agua está formada por hidrógeno y oxígeno.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Lenguaje,¿Cuál es el plural de “crisis”?,Crises,Crisis,Crisises,Crisis’,1
+MULTIPLE_CHOICE,Arte,¿Qué técnica se usa en el fresco?,Óleo,Yeso húmedo,Acuarela,Tinta china,1
+TRUE_FALSE,Física,La luz viaja más rápido que el sonido.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Cultura,¿Qué celebración se asocia con los muertos en México?,Navidad,Halloween,Día de Muertos,Año Nuevo,2

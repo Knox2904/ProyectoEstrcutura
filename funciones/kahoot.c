@@ -8,20 +8,49 @@
 #include "TDAs/list.h"
 #include "TDAs/heap.h"
 #include "TDAs/extra.h"
+#include "TDAs/stack.h"
 #include "kahoot.h"
 
 #define MAX_PREGUNTAS_KAHOOT 10
 
+// variable global para mostrar el historial de partidas
+Stack* historial_partidas = NULL;
+
 void menuKahoot() {
-    limpiarPantalla();
-    puts("========================================");
-    puts("     Bienvenido a Kahoot");
-    puts("========================================");
-    puts("Instrucciones del Kahoot:");
-    puts("- Tienes 20 segundos para responder cada pregunta.");
-    puts("- Si no respondes a tiempo, se considerará incorrecta.");
-    puts("- Solo responderás 10 preguntas por partida.");
-    puts("- Preguntas de selección múltiple y verdadero/falso.");
+    int opcion;
+
+    do {
+        limpiarPantalla();
+        puts("========================================");
+        puts("     Bienvenido a Kahoot");
+        puts("========================================");
+        puts("");
+        puts("Instrucciones del Kahoot:");
+        puts("- Tienes 20 segundos para responder cada pregunta.");
+        puts("- Si no respondes a tiempo, se considerará incorrecta.");
+        puts("- Solo responderás 10 preguntas por partida.");
+        puts("- Preguntas de selección múltiple y verdadero/falso.");
+        puts("");
+
+        opcion = obtener_opcion_menu(1, 3);
+
+        switch (opcion)
+        {
+        case 1:
+            jugar_kahoot();
+            break;
+        case 2:
+            mostrar_historial();
+            break;
+        case 3:
+            puts("¡Gracias por jugar Kahoot!");
+            break;
+        }
+
+        if(opcion != 3) {
+            presioneTeclaParaContinuar();
+        }
+    } while(opcion != 3);
 }
 
 void mostrar_pregunta(Pregunta* p, int numero) {
@@ -152,13 +181,14 @@ int cargar_preguntas_csv(const char* archivo, List* lista) {
     return count;
 }
 
+
 void jugar_kahoot() {
     limpiarPantalla();
     menuKahoot();
     presioneTeclaParaContinuar();
 
     List* preguntas = list_create();
-    int total_disponibles = cargar_preguntas_csv("CSVs/kahoot_40_preguntas.csv", preguntas);
+    int total_disponibles = cargar_preguntas_csv("CSVs/kahoot_55_preguntas.csv", preguntas);
     if (total_disponibles == 0) {
         printf("No se pudieron cargar preguntas.\n");
         return;
@@ -196,4 +226,60 @@ void jugar_kahoot() {
     mostrar_resultado_final(&partida);
     list_clean(preguntas);
     free(preguntas);
+}
+
+void mostrar_historial() {
+    limpiarPantalla();
+    puts("HISTORIAL DE PARTIDAS");
+    puts("========================================");
+    
+    if (!stack_top(historial_partidas)) {
+        puts("No hay partidas registradas aún.");
+        return;
+    }
+    
+    Stack* temp_stack = stack_create(NULL);
+    int contador = 1;
+    
+    // Mostrar hasta 10 partidas más recientes
+    while (stack_top(historial_partidas) && contador <= 10) {
+        Partida* p = stack_pop(historial_partidas);
+        stack_push(temp_stack, p);
+        
+        printf("%d. ", contador);
+        printf("Puntaje: %d | ", p->puntaje_total);
+        printf("Correctas: %d/%d | ", p->preguntas_correctas, p->total_preguntas);
+        printf("Promedio: %.1fs\n", p->tiempo_promedio);
+        
+        contador++;
+    }
+    
+    // restaurar stack original
+    while (stack_top(temp_stack)) {
+        stack_push(historial_partidas, stack_pop(temp_stack));
+    }
+    
+    stack_clean(temp_stack);
+}
+
+int obtener_opcion_menu(int min, int max) {
+    int opcion;
+    
+    do {
+        printf("Selecciona una opción (%d-%d): ", min, max);
+        
+        while (scanf("%d", &opcion) != 1) {
+            while (getchar() != '\n');
+            printf("Por favor, ingresa un número válido (%d-%d): ", min, max);
+        }
+        
+        while (getchar() != '\n');
+        
+        if (opcion < min || opcion > max) {
+            printf("Opción inválida. Debe estar entre %d y %d.\n", min, max);
+        }
+        
+    } while (opcion < min || opcion > max);
+    
+    return opcion;
 }

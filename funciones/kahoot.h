@@ -29,15 +29,6 @@ typedef struct {
     char categoria[MAX_CATEGORIA];
 } Pregunta;
 
-// respuesta del jugador
-typedef struct {
-    Pregunta* pregunta;
-    int respuesta_usuario;
-    int tiempo_respuesta;
-    bool correcta;
-    int puntos_obtenidos;
-} RespuestaUsuario;
-
 // partida completa
 typedef struct {
     time_t fecha;
@@ -47,43 +38,25 @@ typedef struct {
     float tiempo_promedio;
 } Partida;
 
-// entrada para ranking
-typedef struct {
-    int puntaje;
-    time_t fecha;
-    int preguntas_correctas;
-    int total_preguntas;
-} EntradaRanking;
-
 // funciones principales
-void inicializar_kahoot();
-void finalizar_kahoot();
-void menu_principal();
+void menu_kahoot();
 
 // funciones de carga de datos
 int cargar_preguntas_csv(const char* archivo, List* lista);
-Pregunta* crear_pregunta(char** campos);
 
 // funciones del juego
 void jugar_kahoot();
 void mostrar_pregunta(Pregunta* p, int numero);
-int obtener_respuesta_usuario(Pregunta* p);
+int obtener_respuesta_usuario_con_tiempo(Pregunta* p, int* tiempo_usado, bool* respondio);
 int calcular_puntaje(bool correcta, int tiempo_restante);
 void mostrar_resultado_pregunta(bool correcta, int puntos, Pregunta* p);
 void mostrar_resultado_final(Partida* partida);
 
 // funciones de historial y ranking
-void guardar_partida(Partida* partida);
 void mostrar_historial();
-void mostrar_ranking();
-void actualizar_ranking(Partida* partida);
-
-// funciones de comparación para heap y ordenamiento
-int comparar_puntajes(void* a, void* b);
+int obtener_opcion_menu(int min, int max);
 
 // funciones de utilidad and stuff
-void mostrar_instrucciones();
-int obtener_opcion_menu(int min, int max);
-void liberar_pregunta(void* p);
+void aleatorizarPreguntas(List* lista);
 
 #endif
