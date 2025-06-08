@@ -216,7 +216,7 @@ int main() {
 
         switch (opcion) {
             case '1':
-                jugar_kahoot();
+                menuKahoot();
                 break;
             case '2':
                 jugarWordle();
