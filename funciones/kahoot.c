@@ -16,9 +16,64 @@
 // variable global para mostrar el historial de partidas
 Stack* historial_partidas = NULL;
 
+void mostrar_historial() {
+    limpiarPantalla();
+    puts("HISTORIAL DE PARTIDAS");
+    puts("========================================");
+    
+    if (!stack_top(historial_partidas)) {
+        puts("No hay partidas registradas aún.");
+        return;
+    }
+    
+    Stack* temp_stack = stack_create(NULL);
+    int contador = 1;
+    
+    // Mostrar hasta 10 partidas más recientes
+    while (stack_top(historial_partidas) && contador <= 10) {
+        Partida* p = stack_pop(historial_partidas);
+        stack_push(temp_stack, p);
+        
+        printf("%d. ", contador);
+        printf("Puntaje: %d | ", p->puntaje_total);
+        printf("Correctas: %d/%d | ", p->preguntas_correctas, p->total_preguntas);
+        printf("Promedio: %.1fs\n", p->tiempo_promedio);
+        
+        contador++;
+    }
+    
+    // restaurar stack original
+    while (stack_top(temp_stack)) {
+        stack_push(historial_partidas, stack_pop(temp_stack));
+    }
+    
+    stack_clean(temp_stack);
+}
+
+int obtener_opcion_menu(int min, int max) {
+    int opcion;
+    
+    do {
+        printf("Selecciona una opción (%d-%d): ", min, max);
+        
+        while (scanf("%d", &opcion) != 1) {
+            while (getchar() != '\n');
+            printf("Por favor, ingresa un número válido (%d-%d): ", min, max);
+        }
+        
+        while (getchar() != '\n');
+        
+        if (opcion < min || opcion > max) {
+            printf("Opción inválida. Debe estar entre %d y %d.\n", min, max);
+        }
+        
+    } while (opcion < min || opcion > max);
+    
+    return opcion;
+}
+
 void menuKahoot() {
     int opcion;
-
     do {
         limpiarPantalla();
         puts("========================================");
@@ -30,6 +85,9 @@ void menuKahoot() {
         puts("- Si no respondes a tiempo, se considerará incorrecta.");
         puts("- Solo responderás 10 preguntas por partida.");
         puts("- Preguntas de selección múltiple y verdadero/falso.");
+        puts("1. Empezar!");
+        puts("2. Ver Historial de Partidas");
+        puts("3. Salir");
         puts("");
 
         opcion = obtener_opcion_menu(1, 3);
@@ -181,7 +239,6 @@ int cargar_preguntas_csv(const char* archivo, List* lista) {
     return count;
 }
 
-
 void jugar_kahoot() {
     limpiarPantalla();
     menuKahoot();
@@ -226,60 +283,4 @@ void jugar_kahoot() {
     mostrar_resultado_final(&partida);
     list_clean(preguntas);
     free(preguntas);
-}
-
-void mostrar_historial() {
-    limpiarPantalla();
-    puts("HISTORIAL DE PARTIDAS");
-    puts("========================================");
-    
-    if (!stack_top(historial_partidas)) {
-        puts("No hay partidas registradas aún.");
-        return;
-    }
-    
-    Stack* temp_stack = stack_create(NULL);
-    int contador = 1;
-    
-    // Mostrar hasta 10 partidas más recientes
-    while (stack_top(historial_partidas) && contador <= 10) {
-        Partida* p = stack_pop(historial_partidas);
-        stack_push(temp_stack, p);
-        
-        printf("%d. ", contador);
-        printf("Puntaje: %d | ", p->puntaje_total);
-        printf("Correctas: %d/%d | ", p->preguntas_correctas, p->total_preguntas);
-        printf("Promedio: %.1fs\n", p->tiempo_promedio);
-        
-        contador++;
-    }
-    
-    // restaurar stack original
-    while (stack_top(temp_stack)) {
-        stack_push(historial_partidas, stack_pop(temp_stack));
-    }
-    
-    stack_clean(temp_stack);
-}
-
-int obtener_opcion_menu(int min, int max) {
-    int opcion;
-    
-    do {
-        printf("Selecciona una opción (%d-%d): ", min, max);
-        
-        while (scanf("%d", &opcion) != 1) {
-            while (getchar() != '\n');
-            printf("Por favor, ingresa un número válido (%d-%d): ", min, max);
-        }
-        
-        while (getchar() != '\n');
-        
-        if (opcion < min || opcion > max) {
-            printf("Opción inválida. Debe estar entre %d y %d.\n", min, max);
-        }
-        
-    } while (opcion < min || opcion > max);
-    
-    return opcion;
 }
