@@ -61,7 +61,7 @@ void finalizar_kahoot();
 void menu_principal();
 
 // funciones de carga de datos
-int cargar_preguntas_csv(const char* archivo);
+int cargar_preguntas_csv(const char* archivo, List* lista);
 Pregunta* crear_pregunta(char** campos);
 
 // funciones del juego

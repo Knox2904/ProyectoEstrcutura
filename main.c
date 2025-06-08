@@ -201,16 +201,6 @@ void jugarWordle(){
     Sleep(4000);
 }
 
-void jugarKahoot()
-{
-    char respuesta[300];
-    int puntaje;
-    menuKahoot();
-    printf("listo para jugar ?\n");
-    //scnaf();
-
-}
-
 int main() {
     SetConsoleOutputCP(CP_UTF8);
 
@@ -226,7 +216,7 @@ int main() {
 
         switch (opcion) {
             case '1':
-                // jugarKahoot();
+                jugar_kahoot();
                 break;
             case '2':
                 jugarWordle();

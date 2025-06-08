@@ -1,0 +1,41 @@
+tipo,categoria,pregunta,respuesta1,respuesta2,respuesta3,respuesta4,respuesta_correcta
+MULTIPLE_CHOICE,Cultura general,¿Cuál es la capital de Francia?,Madrid,Roma,París,Berlín,2
+MULTIPLE_CHOICE,Ciencia,¿Qué planeta es conocido como el planeta rojo?,Marte,Venus,Júpiter,Saturno,0
+MULTIPLE_CHOICE,Historia,¿Quién fue el primer presidente de EE.UU.?,Lincoln,Jefferson,Washington,Roosevelt,2
+TRUE_FALSE,Geografía,El Nilo es el río más largo del mundo.,Verdadero,Falso,,,0
+TRUE_FALSE,Cultura,La Torre Eiffel está en Berlín.,Verdadero,Falso,,,1
+MULTIPLE_CHOICE,Matemática,¿Cuánto es 7 x 8?,54,56,48,64,1
+TRUE_FALSE,Deportes,Chile ha ganado la Copa América.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Tecnología,¿Qué empresa desarrolló el iPhone?,Google,Apple,Samsung,Microsoft,1
+MULTIPLE_CHOICE,Literatura,¿Quién escribió Don Quijote?,Cervantes,Lorca,Góngora,Quevedo,0
+TRUE_FALSE,Música,Beethoven era alemán.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Cine,¿Cuál es la película más taquillera de la historia?,Titanic,Avatar,Avengers: Endgame,Star Wars,1
+MULTIPLE_CHOICE,Cultura,¿En qué país se encuentra Machu Picchu?,Chile,México,Colombia,Perú,3
+TRUE_FALSE,Cultura,La Gran Muralla China puede verse desde el espacio.,Verdadero,Falso,,,1
+MULTIPLE_CHOICE,Biología,¿Dónde se encuentra el ADN?,Hígado,Piel,Núcleo de la célula,Corazón,2
+MULTIPLE_CHOICE,Física,¿Quién formuló la ley de la gravedad?,Newton,Einstein,Galileo,Faraday,0
+TRUE_FALSE,Tecnología,Python es un lenguaje de programación.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Lenguaje,¿Cuál es el antónimo de "alegre"?,Triste,Feliz,Contento,Animado,0
+MULTIPLE_CHOICE,Química,¿Cuál es el símbolo del oro?,Au,Ag,Fe,O,0
+MULTIPLE_CHOICE,Astronomía,¿Cuál es la estrella más cercana a la Tierra?,Sol,Proxima Centauri,Sirius,Polaris,0
+TRUE_FALSE,Geografía,Australia es un continente y un país.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Deportes,¿Cuántos jugadores tiene un equipo de fútbol en cancha?,9,10,11,12,2
+TRUE_FALSE,Cultura,La pizza es originaria de Francia.,Verdadero,Falso,,,1
+MULTIPLE_CHOICE,Música,¿Quién es el rey del pop?,Elton John,Freddie Mercury,Michael Jackson,Prince,2
+MULTIPLE_CHOICE,Tecnología,¿Qué significa "HTML"?,Hyper Tool Markup Language,High Text Machine Language,HyperText Markup Language,HighType Mark Language,2
+MULTIPLE_CHOICE,Literatura,¿Quién escribió Cien Años de Soledad?,Mario Vargas Llosa,Pablo Neruda,Gabriel García Márquez,Jorge Luis Borges,2
+TRUE_FALSE,Matemática,Un triángulo tiene 3 lados.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Geografía,¿Dónde está el monte Everest?,India,Nepal,China,Japón,1
+MULTIPLE_CHOICE,Historia,¿En qué año terminó la Segunda Guerra Mundial?,1944,1945,1946,1947,1
+TRUE_FALSE,Ciencia,Los humanos tienen cinco sentidos.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Arte,¿Qué pintor cortó parte de su oreja?,Van Gogh,Picasso,Da Vinci,Monet,0
+MULTIPLE_CHOICE,Cultura,¿Cuál es la moneda de Japón?,Won,Yuan,Yen,Dólar,2
+TRUE_FALSE,Lenguaje,"Carro" y "automóvil" son sinónimos.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Física,¿Qué unidad mide la fuerza?,Pascal,Newton,Joule,Voltio,1
+MULTIPLE_CHOICE,Tecnología,¿Qué empresa es dueña de Android?,Apple,Microsoft,Google,Amazon,2
+TRUE_FALSE,Historia,La Revolución Francesa ocurrió en el siglo XVIII.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Química,¿Qué elemento tiene el número atómico 1?,Helio,Oxígeno,Hidrógeno,Nitrógeno,2
+MULTIPLE_CHOICE,Biología,¿Qué órgano bombea la sangre?,Pulmón,Cerebro,Hígado,Corazón,3
+TRUE_FALSE,Cine,El personaje de "Forrest Gump" fue interpretado por Tom Hanks.,Verdadero,Falso,,,0
+MULTIPLE_CHOICE,Deportes,¿En qué país se originaron los Juegos Olímpicos?,Italia,Grecia,Egypto,España,1
+TRUE_FALSE,Literatura,"Romeo y Julieta" fue escrita por Shakespeare.,Verdadero,Falso,,,0
