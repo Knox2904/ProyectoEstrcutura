@@ -308,7 +308,6 @@ void juegoNormalWordle(Wordle *partida , int *perdio){
         }
     }
 
-    puts("redirigiendo al menu : ") ; 
     Sleep(2000);
 
 }
