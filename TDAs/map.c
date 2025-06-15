@@ -78,6 +78,18 @@ MapPair *map_search(Map *map, void *key) {
   }
   return NULL;
 }
+int int_is_equal(void* key1, void* key2) {
+    return *(int*)key1 == *(int*)key2;
+}
+
+int map_size(Map *map) {
+    // Si el mapa o su lista interna no existen, el tamaño es 0.
+    if (map == NULL || map->ls == NULL) {
+        return 0;
+    }
+    // Devuelve el tamaño de la lista interna.
+    return list_size(map->ls);
+}
 
 MapPair *map_first(Map *map) { return list_first(map->ls); }
 

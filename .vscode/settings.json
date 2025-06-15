@@ -8,6 +8,7 @@
         "ctype.h": "c",
         "list.h": "c",
         "kahoot.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "map.h": "c"
     }
 }

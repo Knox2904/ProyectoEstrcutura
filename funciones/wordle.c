@@ -13,6 +13,8 @@
 #define MAX_PALABRAS 50
 #define MAX_LARGO 32
 
+
+
 Wordle *crearWordle(int maxIntentos , int largoPalabra , const char *palabraObjetivo ){
     
     Wordle *partida = malloc(sizeof(Wordle)) ; 
@@ -193,6 +195,8 @@ Wordle* cargarCSVWordle(const char *dificultad, int intentos) {
 
     Wordle *aux = crearWordle(intentos, largo, palabra);
 
+    free(palabra);
+
     // Liberar memoria de las palabras no seleccionadas
     for (int i = 0; i < count; i++) {
         if (i != indice) free(lista[i]);
@@ -212,7 +216,9 @@ void menuWordle(){
   puts("2) Normal ⚡");
   puts("3) Extremo 💀");
   puts("4) Pruebate a ti mismo 💪") ; 
-  puts("5) Salir") ; 
+  puts("5) Ver Historial y Estadisticas 📊");
+  puts("6) Resetear Estadísticas 🗑️"); 
+  puts("7) Salir") ; 
 
 
 }
@@ -295,7 +301,8 @@ void juegoNormalWordle(Wordle *partida , int *perdio){
         //se adivino la palabra?
         if (flag == 0 ){
             limpiarPantalla() ; 
-            printf("felicidades , encontraste la plabra correcta con %d intentos restantes :) \n" , intentosRestantes) ; 
+            printf("felicidades , encontraste la plabra correcta con %d intentos restantes :) \n" , intentosRestantes) ;
+            guardarPartida(partida, true);
             break;
         }
 
@@ -303,7 +310,8 @@ void juegoNormalWordle(Wordle *partida , int *perdio){
         if(partida->intentoActual >= partida->maxIntentos) {
             limpiarPantalla() ;             
             printf("te quedaste sin intentos , la palabra era : %s\n", partida->palabraObjetivo) ;
-            *perdio = 1 ; 
+            *perdio = 1 ;
+            guardarPartida(partida , false);
             break ; 
         }
     }
@@ -318,10 +326,17 @@ void ConfigurarWorldes(Wordle **partida, char *opcion , Stack* pila) {
     int intentos[] = {6 , 5 , 3 , 5} ; 
 
     do {
-        printf("Seleccione una opción (1-4) o 5 para salir: ");
-        scanf(" %c", opcion); 
 
-        if (*opcion >= '1' && *opcion <= '5') {
+        limpiarPantalla();  // Limpiamos la pantalla para un menu limpio
+        menuWordle();      
+        
+        printf("\nSeleccione una opción: ");
+        scanf(" %c", opcion);
+        while(getchar() != '\n'); // Limpiar buffer
+
+        // El switch ahora incluye el caso 5 y 6, el 7 es para salir
+
+        if (*opcion >= '1' && *opcion <= '7') {
             switch (*opcion) {
                 case '1':
                     printf("cargando csv\n"); 
@@ -354,15 +369,24 @@ void ConfigurarWorldes(Wordle **partida, char *opcion , Stack* pila) {
                     Sleep(2000);
                     limpiarPantalla();
                     break;
+
                 case '5':
+                    mostrarHistorial();
+                    break;
+
+                case '6':
+                    resetear();
+                    break;
+
+                case '7':
                     printf("Saliendo del programa...\n");
                     Sleep(2000);
                     break;
             }
         } else {
-            printf("Opción no válida, seleccione una opción válida (1-4) o 5 para salir\n");
+            printf("Opción no válida, seleccione una opción válida (1-4) o 5-6 para salir\n");
         }
-    } while (*opcion < '1' || *opcion > '5');
+    } while (*opcion < '1' || *opcion > '6');
 }
 
 void jugarInfinito(Stack* pila) {
@@ -433,4 +457,250 @@ void jugarInfinito(Stack* pila) {
         limpiarPantalla();
     }
 
+}
+
+
+int obtener_proximo_numeroP() 
+{
+    // 1. Intenta abrir el archivo en modo lectura.
+    FILE* archivo = fopen("CSVs/historial_WordleChad.csv", "r");
+    
+    // 2. Si el archivo no existe, significa que esta es la primera partida.
+    if (!archivo) 
+    {
+        return 1; 
+    }
+
+    char linea[256];
+    int ultimo_numero = 0;
+
+    // 3. Lee el archivo línea por línea hasta el final.
+    while (fgets(linea, sizeof(linea), archivo)) 
+    {
+        // 4. Intenta leer un número de una línea que empiece con "NUMERO:".
+        
+        if (sscanf(linea, "NUMERO:%d", &ultimo_numero) == 1) 
+        {
+            // Si encuentra un número, actualiza la variable 'ultimo_numero'.
+            // Al final del bucle, tendrá el número de la última partida guardada.
+        }
+    }
+    
+    fclose(archivo);
+
+    // 5. Devuelve el último número encontrado más uno.
+    return ultimo_numero + 1;
+}
+
+void guardarPartida(Wordle* partida, bool gano) 
+{
+    FILE* archivo = fopen("CSVs/historial_WordleChad.csv", "a");
+    if (!archivo) 
+    {
+        perror("No se pudo abrir el historial");
+        return;
+    }
+
+    int numero_partida = obtener_proximo_numeroP();
+
+    // Se escriben todos los datos necesarios para reconstruir la partida
+    fprintf(archivo, "PARTIDA_START\n");
+    fprintf(archivo, "NUMERO:%d\n", numero_partida);
+    fprintf(archivo, "LARGO_PALABRA:%d\n", partida->largoPalabra);
+    fprintf(archivo, "OBJETIVO:%s\n", partida->palabraObjetivo);
+    fprintf(archivo, "GANO:%d\n", gano);
+    fprintf(archivo, "INTENTOS_REALIZADOS:%d\n", partida->intentoActual);
+
+    // Se guarda cada uno de los intentos
+    for (int i = 0; i < partida->intentoActual; i++) {
+        fprintf(archivo, "INTENTO:%s\n", partida->TablaWordle[i]);
+    }
+
+    fprintf(archivo, "PARTIDA_END\n");
+    fclose(archivo);
+}
+
+void destruirPG(PartidaGuardada* pg) {
+    if (!pg) return;
+
+    free(pg->palabraObjetivo);
+
+    for (int i = 0; i < pg->numIntentosRealizados; i++) {
+        free(pg->intentos[i]);
+    }
+    free(pg->intentos);
+
+    free(pg);
+}
+
+void reimprimirPG(PartidaGuardada* pg) {
+    printf("\n--- Repetición de la Partida #%d ---\n", pg->numero_partida);
+    printf("Palabra objetivo: %s\n\n", pg->palabraObjetivo);
+
+    Wordle evaluador_temp;
+    evaluador_temp.largoPalabra = pg->largoPalabra;
+    evaluador_temp.palabraObjetivo = pg->palabraObjetivo;
+
+    for (int i = 0; i < pg->numIntentosRealizados; i++) {
+        char resultado[MAX_LARGO];
+        evaluarIntento(&evaluador_temp, pg->intentos[i], resultado);
+        imprimirResultado(pg->intentos[i], resultado, evaluador_temp.largoPalabra);
+    }
+    printf("--- Fin de la Repetición ---\n");
+}
+
+void mostrarHistorial() {
+    limpiarPantalla();
+    puts("========================================");
+    puts("       Historial de Partidas        ");
+    puts("========================================");
+
+    // Intenta abrir el archivo de historial para leerlo
+    FILE* archivo = fopen("CSVs/historial_WordleChad.csv", "r"); // Usando tu nueva ruta de archivo
+
+    // Si el archivo no se puede abrir, muestra un mensaje y termina.
+    if (!archivo) {
+        puts("\nNo se ha jugado ninguna partida todavía.");
+        presioneTeclaParaContinuar();
+        return;
+    }
+    
+    // Si el archivo existe, procede a leerlo.
+    Map* historial_map = map_create(int_is_equal);
+    char linea[256];
+    PartidaGuardada* partida_actual = NULL;
+    int contador_intentos = 0;
+
+    // Bucle para leer el archivo línea por línea y construir las estructuras en memoria
+    while (fgets(linea, sizeof(linea), archivo)) {
+        linea[strcspn(linea, "\r\n")] = 0; // Limpiar saltos de línea
+
+        if (strcmp(linea, "PARTIDA_START") == 0) {
+            partida_actual = calloc(1, sizeof(PartidaGuardada));
+            contador_intentos = 0;
+        } else if (partida_actual) {
+            if (sscanf(linea, "NUMERO:%d", &partida_actual->numero_partida) == 1) {}
+            else if (sscanf(linea, "LARGO_PALABRA:%d", &partida_actual->largoPalabra) == 1) {}
+            else if (strncmp(linea, "OBJETIVO:", 9) == 0) {
+                partida_actual->palabraObjetivo = strdup(linea + 9);
+            }
+            else if (sscanf(linea, "GANO:%d", (int*)&partida_actual->gano) == 1) {}
+            else if (sscanf(linea, "INTENTOS_REALIZADOS:%d", &partida_actual->numIntentosRealizados) == 1) {
+                partida_actual->intentos = malloc(partida_actual->numIntentosRealizados * sizeof(char*));
+            }
+            else if (strncmp(linea, "INTENTO:", 8) == 0) {
+                if (partida_actual->intentos && contador_intentos < partida_actual->numIntentosRealizados) {
+                    partida_actual->intentos[contador_intentos] = strdup(linea + 8);
+                    contador_intentos++;
+                }
+            }
+            else if (strcmp(linea, "PARTIDA_END") == 0) {
+                int* clave = malloc(sizeof(int));
+                *clave = partida_actual->numero_partida;
+                map_insert(historial_map, clave, partida_actual);
+                partida_actual = NULL;
+            }
+        }
+    }
+    fclose(archivo);
+
+    int total_partidas = map_size(historial_map); 
+    int partidas_ganadas = 0;
+    int suma_intentos_victorias = 0;
+
+    if (total_partidas > 0) {
+        MapPair* par_stats = map_first(historial_map);
+        while(par_stats) {
+            PartidaGuardada* pg = par_stats->value;
+            if (pg->gano) {
+                partidas_ganadas++;
+                suma_intentos_victorias += pg->numIntentosRealizados;
+            }
+            par_stats = map_next(historial_map);
+        }
+
+        float porcentajeV = ((float)partidas_ganadas / total_partidas) * 100.0;
+        float promedioI = (partidas_ganadas > 0) ? ((float)suma_intentos_victorias / partidas_ganadas) : 0.0;
+
+        printf("\n ---- Estadísticas Generales ----\n");
+        printf("   Partidas Jugadas: %d\n", total_partidas);
+        printf("   Porcentaje de Victorias: %.1f%%\n", porcentajeV);
+        printf("   Intentos promedio (en victorias): %.2f\n", promedioI);
+        printf(" ------------------------------\n");
+    }
+
+    // Mostrar el resumen de todas las partidas cargadas
+    printf("\nResumen de Partidas Jugadas:\n");
+    MapPair* par = map_first(historial_map);
+    while(par) {
+        PartidaGuardada* pg = par->value;
+        printf("Partida #%d: %s en %d intentos. (Palabra: %s)\n",
+               pg->numero_partida,
+               pg->gano ? "GANADA" : "PERDIDA",
+               pg->numIntentosRealizados,
+               pg->palabraObjetivo);
+        par = map_next(historial_map);
+    }
+
+    // Pedir al usuario que elija una partida para verla en detalle
+    printf("\nIntroduce el número de partida para ver detalles (0 para salir): ");
+    int num_elegido;
+    scanf("%d", &num_elegido);
+    while (getchar() != '\n');
+
+    
+    if (num_elegido > 0) {
+        // CAMBIO 1: La variable ahora es de tipo MapPair*
+        MapPair* par_elegido = map_search(historial_map, &num_elegido);
+
+        // CAMBIO 2: Se comprueba si el par (la partida) fue encontrado
+        if (par_elegido) {
+            // CAMBIO 3: Se accede al valor (.value) del par para obtener la partida
+            PartidaGuardada* pg_elegida = par_elegido->value;
+            reimprimirPG(pg_elegida);
+        } else {
+            printf("Número de partida no válido.\n");
+        }
+    }
+    
+    
+    // Bucle final para liberar toda la memoria dinámica utilizada
+    par = map_first(historial_map);
+    while(par) {
+        free(par->key);
+        destruirPG(par->value);
+        par = map_next(historial_map);
+    }
+    map_clean(historial_map);
+    free(historial_map);
+
+    presioneTeclaParaContinuar();
+}
+
+void resetear() 
+{
+    char confirmacion;
+    limpiarPantalla();
+    printf("========================================\n");
+    printf("      Resetear Historial y Estadísticas\n");
+    printf("========================================\n\n");
+    printf("ADVERTENCIA: Esta acción borrará permanentemente todo tu historial de partidas.\n");
+    printf("¿Estás seguro de que quieres continuar? (s/n): ");
+
+    scanf(" %c", &confirmacion);
+    while(getchar() != '\n'); // Limpiar buffer
+
+    if (confirmacion == 's' || confirmacion == 'S') {
+        // remove() es una función de la librería estándar <stdio.h>
+        if (remove("CSVs/historial_WordleChad.csv") == 0) {
+            printf("\nHistorial borrado con éxito.\n");
+        } else {
+            // Esto puede pasar si el archivo no existía o hay un problema de permisos
+            printf("\nNo se pudo borrar el historial (o ya estaba vacío).\n");
+        }
+    } else {
+        printf("\nOperación cancelada. Tu historial está a salvo.\n");
+    }
+
+    presioneTeclaParaContinuar();
 }

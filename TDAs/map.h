@@ -27,4 +27,8 @@ MapPair *map_next(Map *map);
 
 void map_clean(Map *map);
 
+int int_is_equal(void* key1, void* key2);
+
+int map_size(Map *map);
+
 #endif /* MAP_H */

@@ -23,43 +23,37 @@ void menuGeneral() {
 }
 
 void jugarWordle() {
-    char opcion; 
+    char opcion = ' '; 
     Wordle *partida = NULL;
-    Stack *pilaWordles = stack_create();  // crear pila vacía
+    Stack *pilaWordles = stack_create();
     int perdio = 0;
 
-    reglasWordle();      
-    menuWordle(); 
+    reglasWordle();
+    
+    // ConfigurarWorldes ahora maneja todo el menú y la selección.
+    
+    // La variable 'opcion' se actualizara con tu eleccion(el que ocupe el juego/programa)
     ConfigurarWorldes(&partida, &opcion, pilaWordles);
 
-    if (opcion == '4') {
+    // Después de que ConfigurarWorldes termina, decidimos si jugar o no.
+    if (opcion >= '1' && opcion <= '3') {
+        // Si se eligió un modo normal y se creó una partida
+        if (partida != NULL) {
+            juegoNormalWordle(partida, &perdio);
+            destruirWordle(partida);
+        }
+    } else if (opcion == '4') {
+        // Si se eligió el modo infinito
         jugarInfinito(pilaWordles);
-        // Solo destruir pila con datos, ya que cada Wordle está dentro
-        stack_destroy(pilaWordles, (void (*)(void *))destruirWordle);
-        pilaWordles = NULL;
-        // No destruir partida, ya está dentro de la pila
-        partida = NULL;
-    } 
-    else if (opcion != '5') {
-        juegoNormalWordle(partida, &perdio);
-        // destruir la partida creada normal
-        if (partida != NULL) {
-            destruirWordle(partida);
-            partida = NULL;
-        }
-        // destruir pila vacía (sin datos)
-        stack_destroy(pilaWordles, NULL);
-        pilaWordles = NULL;
-    } else {
-        // opción 5 o salir, liberar todo
-        if (partida != NULL) {
-            destruirWordle(partida);
-            partida = NULL;
-        }
-        stack_destroy(pilaWordles, NULL);
-        pilaWordles = NULL;
     }
+    // Si la opción fue '5' (historial) o '6' (salir), no se hace nada aquí,
+    // porque la acción ya se completó dentro de ConfigurarWorldes.
+    // La función simplemente termina y vuelve al menú principal.
+
+    // Liberamos la pila por si no se usó (ej: si solo se vio el historial)
+    stack_destroy(pilaWordles, NULL);
 }
+
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
