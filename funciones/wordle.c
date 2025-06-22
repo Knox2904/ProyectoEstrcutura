@@ -153,6 +153,7 @@ void reglasWordle() {
     printf("Facil -> largo de 3 a 6 letras , con 6 intentos\n") ;
     printf("Normal -> largo de 4 a 6 letras , con 5 intentos \n") ;
     printf("Dificil -> largo con 7 a 35 letras con 3 intentos (suerte 🙏💀 )\n") ;
+    printf("ENDLESS -> todas las dificultades unidas y sigues hasta que no lo soportes más o hasta que superes el infierno mismo (suerte 🙏💀💀💀💀 )\n") ;
     puts("") ; 
     puts("Como se juega :") ; 
     puts("1) escribe una palabra de largo cambiante , segun la dificultad elegida , en cada intento") ; 
