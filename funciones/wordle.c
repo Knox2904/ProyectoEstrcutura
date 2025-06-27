@@ -35,6 +35,8 @@ Wordle *crearWordle(int maxIntentos , int largoPalabra , const char *palabraObje
 void guardarIntento(Wordle *partida , const char *intento) {
     if (partida->intentoActual >= partida->maxIntentos) return ;
 
+    
+
     strncpy(partida->TablaWordle[partida->intentoActual], intento, partida->largoPalabra);
     partida->intentoActual++;
 }
@@ -281,7 +283,7 @@ void juegoNormalWordle(Wordle *partida , int *perdio){
 
         //se pide la palabra 
         puts("ingrese su intento : \n") ; 
-        getchar() ;
+        
         scanf("%[^\n]", intento);
 
         //es la palabra correcta?
@@ -296,8 +298,10 @@ void juegoNormalWordle(Wordle *partida , int *perdio){
             mostrarWordleColoreado(partida);
             printf("el largo es  : %d\n" , partida->largoPalabra) ;
             printf("te quedan %d intentos 💀 \n" , intentosRestantes) ; 
+            getchar() ;
             
         }
+
 
         //se adivino la palabra?
         if (flag == 0 ){
