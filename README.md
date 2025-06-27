@@ -252,7 +252,7 @@ Felipe Castro: hizo funciones para que se imprimiera el wordle, se evaluara el i
 
 ## Equipo Kahoot:
 
-Luis Gúzman: hizo funciones como menuKahoot, Mostrar_pregunta, obtener_respuesta_usuario_con_tiempo, calcular_puntaje, en general el esqueleto de kahoot, tambien se dedico a revisar errores y areglar en kahoot, tambien ayudo con las creaciones de csv de ambos juegos y algunas funciones para leer csv.
+Luis Guzmán: hizo funciones como menuKahoot, Mostrar_pregunta, obtener_respuesta_usuario_con_tiempo, calcular_puntaje, en general el esqueleto de kahoot, tambien se dedico a revisar errores y areglar en kahoot, tambien ayudo con las creaciones de csv de ambos juegos y algunas funciones para leer csv.
 
 Juan Araya : hizo contribuciones importantes en csv, como leerlos, como escribirlos, e ideas de que como dividir dificultades en temas de wordle, y preguntas en kahoot. en kahoot ayudo a implementar el historial y a mostrar los resultados tanto, como del historial como de las partidas en generales, las funciones fueron: mostrar_resultado_final, cargar_preguntas_csv, mostrar_historial, jugar_kahoot.
 tambien ayudo a testear rigurosamente las funcionalidades de ambos videojuegos. 
